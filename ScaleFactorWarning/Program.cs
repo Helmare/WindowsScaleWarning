@@ -1,3 +1,6 @@
+using Newtonsoft.Json;
+using System.Diagnostics;
+
 namespace ScaleFactorWarning
 {
     internal static class Program
@@ -11,7 +14,47 @@ namespace ScaleFactorWarning
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+
+            ProcessWatch[]? watches = JsonConvert.DeserializeObject<ProcessWatch[]>(File.ReadAllText("watch.json"));
+            if (watches == null)
+            {
+                MessageBox.Show("Failed to start ScaleFactorWarning");
+                return;
+            }
+
+            while (true)
+            {
+                Thread.Sleep(250);
+                if (Screen.PrimaryScreen.GetScale() == 1) continue;
+
+                // Reset watches
+                foreach (ProcessWatch watch in watches)
+                {
+                    Process? process = Process.GetProcessesByName(watch.ProcessName).FirstOrDefault();
+                    if (process == null)
+                    {
+                        if (watch.Opened)
+                        {
+                            Debug.WriteLine($"{watch.Name} closed.");
+                        }
+                        watch.Opened = false;
+                    }
+                    else
+                    {
+                        if (watch.AutoKill) process.Kill();
+                        if (!watch.Opened)
+                        {
+                            Debug.WriteLine($"{watch.Name} opened.");
+                            DialogResult result = MessageBox.Show($"WINDOWS SCALE WARNING\n\nYou just opened {watch.Name}, which is poorly affected by windows scaling.\n\nWould you like to close the application?", "ScaleFactorWarning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (result == DialogResult.Yes)
+                            {
+                                process.Kill();
+                            }
+                        }
+                        watch.Opened = true;
+                    }
+                }
+            }
         }
     }
 }
