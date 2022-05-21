@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace ScaleFactorWarning
+namespace WSW
 {
     /// <summary>
     ///     Contains methods for finding the DPI of monitors.

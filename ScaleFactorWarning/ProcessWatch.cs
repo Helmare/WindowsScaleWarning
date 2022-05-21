@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ScaleFactorWarning
+namespace WSW
 {
     public class ProcessWatch
     {

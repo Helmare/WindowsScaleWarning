@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using System.Diagnostics;
 
-namespace ScaleFactorWarning
+namespace WSW
 {
     internal static class Program
     {
@@ -51,11 +51,7 @@ namespace ScaleFactorWarning
                                 message = $"WINDOWS SCALE WARNING\n\nYou just opened {watch.Name}, which is poorly affected by windows scaling.";
                             }
 
-                            DialogResult result = MessageBox.Show(message + $"\n\nWould you like to close {watch.Name}?", "ScaleFactorWarning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                            if (result == DialogResult.Yes)
-                            {
-                                process.Kill();
-                            }
+                            WarningBox.Show(process, watch);
                         }
                         watch.Opened = true;
                     }
