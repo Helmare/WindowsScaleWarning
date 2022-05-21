@@ -12,9 +12,9 @@ namespace ScaleFactorWarning
         public string ProcessName { get; set; } = "";
         [JsonProperty("auto-kill")]
         public bool AutoKill { get; set; } = false;
+        [JsonProperty("message")]
+        public string? Message { get; set; }
 
-        [JsonIgnore]
-        public bool Open { get; set; } = false;
         [JsonIgnore]
         public bool Opened { get; set; } = false;
     }

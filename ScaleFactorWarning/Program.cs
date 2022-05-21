@@ -45,7 +45,13 @@ namespace ScaleFactorWarning
                         if (!watch.Opened)
                         {
                             Debug.WriteLine($"{watch.Name} opened.");
-                            DialogResult result = MessageBox.Show($"WINDOWS SCALE WARNING\n\nYou just opened {watch.Name}, which is poorly affected by windows scaling.\n\nWould you like to close the application?", "ScaleFactorWarning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            string? message = watch.Message;
+                            if (message == null)
+                            {
+                                message = $"WINDOWS SCALE WARNING\n\nYou just opened {watch.Name}, which is poorly affected by windows scaling.";
+                            }
+
+                            DialogResult result = MessageBox.Show(message + $"\n\nWould you like to close {watch.Name}?", "ScaleFactorWarning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                             if (result == DialogResult.Yes)
                             {
                                 process.Kill();
