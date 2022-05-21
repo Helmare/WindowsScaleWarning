@@ -11,14 +11,20 @@ namespace WSW
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+
+            if (Process.GetProcessesByName("wsw").Length > 1)
+            {
+                MessageBox.Show("Instance of this application already running.", "Windows Scaling Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             ProcessWatch[]? watches = JsonConvert.DeserializeObject<ProcessWatch[]>(File.ReadAllText("watch.json"));
             if (watches == null)
             {
-                MessageBox.Show("Failed to start ScaleFactorWarning");
+                MessageBox.Show("Failed to load \"watch.json\". There may be a syntax error", "Windows Scaling Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -45,12 +51,6 @@ namespace WSW
                         if (!watch.Opened)
                         {
                             Debug.WriteLine($"{watch.Name} opened.");
-                            string? message = watch.Message;
-                            if (message == null)
-                            {
-                                message = $"WINDOWS SCALE WARNING\n\nYou just opened {watch.Name}, which is poorly affected by windows scaling.";
-                            }
-
                             WarningBox.Show(process, watch);
                         }
                         watch.Opened = true;

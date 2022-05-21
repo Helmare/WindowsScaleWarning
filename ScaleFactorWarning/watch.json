@@ -2,7 +2,6 @@
   {
     "name": "Dead By Daylight",
     "process": "DeadByDaylight-Win64-Shipping",
-    "auto-kill": true,
-    "message": "Dead by Daylight is launching with scaling not set to 100% This will result in degraded quality due to how Dead by Daylight determains your monitor's resolution."
+    "auto-kill": false
   }
 ]

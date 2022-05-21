@@ -79,13 +79,13 @@
             this.message.Name = "message";
             this.message.Size = new System.Drawing.Size(710, 226);
             this.message.TabIndex = 3;
-            this.message.Text = "You are opening {name} while your scale is not set to 100%.\r\nConsider changing yo" +
-    "ur scale before using this application.";
+            this.message.Text = "{name} is opening without scaling set to 100%.\r\nThis could result in a degraded e" +
+    "xperience while using the application.";
             this.message.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // WarningBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(710, 336);
