@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace WSW
+﻿namespace WSW
 {
     /// <summary>
     ///     A basic logging class similar to Debug or Console.
@@ -37,7 +35,7 @@ namespace WSW
         /// <param name="str"></param>
         public static void WriteLine(string str)
         {
-            stream.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss:fff}] {str}");
+            stream.WriteLine($"[{DateTime.Now:MM/dd/yyyy HH:mm:ss.fff}] {str}");
             stream.Flush();
         }
         /// <summary>
