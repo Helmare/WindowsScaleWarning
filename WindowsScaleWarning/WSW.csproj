@@ -18,6 +18,7 @@
     <Description>A background application which will prompt you when a DPI sensitive application is opened.</Description>
     <RepositoryType>git</RepositoryType>
     <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>Public Domain</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="watch.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
