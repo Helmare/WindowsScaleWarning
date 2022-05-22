@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSW", "ScaleFactorWarning\WSW.csproj", "{E6121BDA-2E85-4982-9020-18E4C3D6A098}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSW", "WindowsScaleWarning\WSW.csproj", "{E6121BDA-2E85-4982-9020-18E4C3D6A098}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

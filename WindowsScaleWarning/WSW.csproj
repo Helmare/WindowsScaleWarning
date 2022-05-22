@@ -8,6 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>$(MSBuildProjectName.ToLower())</AssemblyName>
     <DebugType>embedded</DebugType>
+    <StartupObject>WSW.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
