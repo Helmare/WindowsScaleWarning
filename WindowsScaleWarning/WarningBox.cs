@@ -27,6 +27,8 @@ namespace WSW
                 btnKill.Visible = false;
                 btnIgnore.Text = "OK";
             }
+
+            Focus();
         }
 
         private void btnKill_Click(object sender, EventArgs e)
