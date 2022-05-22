@@ -9,25 +9,20 @@ namespace WSW
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
+            // Check if process is already running.
             if (Process.GetProcessesByName("wsw").Length > 1)
             {
-                MessageBox.Show("Instance of this application already running.", "Windows Scaling Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Log.Fatal("Instance of this application already running.");
                 return;
             }
 
-            ProcessWatch[]? watches = JsonConvert.DeserializeObject<ProcessWatch[]>(File.ReadAllText("watch.json"));
-            if (watches == null)
-            {
-                MessageBox.Show("Failed to load \"watch.json\". There may be a syntax error", "Windows Scaling Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
+            ProcessWatch[] watches = LoadWatches();
             while (true)
             {
                 Thread.Sleep(250);
@@ -41,7 +36,7 @@ namespace WSW
                     {
                         if (watch.Opened)
                         {
-                            Debug.WriteLine($"{watch.Name} closed.");
+                            Log.Info($"{watch.Name} closed.");
                         }
                         watch.Opened = false;
                     }
@@ -50,12 +45,52 @@ namespace WSW
                         if (watch.AutoKill) process.Kill();
                         if (!watch.Opened)
                         {
-                            Debug.WriteLine($"{watch.Name} opened.");
+                            Log.Info($"{watch.Name} opened.");
                             WarningBox.Show(process, watch);
                         }
                         watch.Opened = true;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        ///     Loads watches from the watch.json file.
+        /// </summary>
+        /// <returns></returns>
+        private static ProcessWatch[] LoadWatches()
+        {
+            if (!File.Exists("watch.json"))
+            {
+                Log.Warning("watch.json file does not exist.");
+                return Array.Empty<ProcessWatch>();
+            }
+
+            string json = File.ReadAllText("watch.json");
+            ProcessWatch[]? watches = null;
+            try
+            {
+                watches = JsonConvert.DeserializeObject<ProcessWatch[]>(json);
+            }
+            catch (JsonSerializationException ex)
+            {
+                Log.Error($"watch.json -> {ex.Message}");
+            }
+
+            if (watches == null)
+            {
+                Log.Warning("Could not load watch.json file.");
+                return Array.Empty<ProcessWatch>();
+            }
+            else
+            {
+                Log.Info("Succsessfully loaded watch.json.");
+                Log.Info($"{watches.Length} watches found.");
+                foreach (ProcessWatch watch in watches)
+                {
+                    Log.Info($"\t{watch.Name}: {watch.ProcessName}");
+                }
+                return watches;
             }
         }
     }
