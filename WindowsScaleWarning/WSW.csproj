@@ -9,6 +9,15 @@
     <AssemblyName>$(MSBuildProjectName.ToLower())</AssemblyName>
     <DebugType>embedded</DebugType>
     <StartupObject>WSW.Program</StartupObject>
+    <SignAssembly>False</SignAssembly>
+    <PackageId>happiishade.wsw</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Christopher Bishop</Authors>
+    <Product>Windows Scale Warning</Product>
+    <RepositoryUrl>https://github.com/hazdryx/WindowsScale</RepositoryUrl>
+    <Description>A background application which will prompt you when a DPI sensitive application is opened.</Description>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
