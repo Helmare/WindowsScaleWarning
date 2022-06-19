@@ -6,7 +6,8 @@ Once you open the application, it will start running in the background. If an ap
 there is a problematic application being launched. The popup gives you an option to ignore the warning or kill the app.
 
 ## Configuration
-You can configure the application using the `watch.json` file.
+You can configure the application using the `watch.json` file, which allows you to add more applications that
+WSW should warn you about.
 
 ```json
 [
@@ -22,6 +23,6 @@ Here is a detailed explenation of each property in the watch objects.
 
 Name | Description | Default
 ---- | ----------- | --------
-`name` | Human friendly name of the application | **REQURED**
-`process` | Name of the process without `.exe` This can be found in the task manager. | **REQURED**
+`name` | Human friendly name of the application | **REQUIRED**
+`process` | Name of the process without `.exe` This can be found in the task manager. | **REQUIRED**
 `auto-kill` | Auto kills the application, but still shows a popup. | `false`
